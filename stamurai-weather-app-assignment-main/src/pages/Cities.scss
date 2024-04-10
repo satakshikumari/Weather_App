@@ -1,0 +1,90 @@
+/* Style for the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+  }
+  
+  /* Style for table headers */
+  th {
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  /* Style for table cells */
+  td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  /* Alternate row background color */
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Hover effect for rows */
+  tr:hover {
+    background-color: #ddd;
+  }
+  
+  /* Cities.scss */
+
+/* Search bar container */
+.search-bar {
+    position: relative;
+    margin-bottom: 20px; /* Adjust as needed */
+  }
+  
+  /* Search input */
+  .search-bar input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Suggestions container */
+  .search-bar ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Individual suggestion item */
+  .search-bar li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  /* Hover effect for suggestion items */
+  .search-bar li:hover {
+    background-color: #f2f2f2;
+  }
+
+.city-name:hover {
+    font-weight: bold;
+    color: blue;
+    cursor: pointer;
+  }
+  
+  .city-name.right-clicked {
+    font-weight: normal;
+    color: black;
+  }
+  
+  
+  
+  
