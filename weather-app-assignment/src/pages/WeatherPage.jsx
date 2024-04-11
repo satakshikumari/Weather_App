@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import { WeatherIcons, WeatherInfoIcons } from "../Icons";
 import TemperatureConvert from "./TemperatureConvert"
+import Navbar from '../components/Navbar';
 
 const BackButton = styled.button`
     margin-top: 20px;
@@ -81,6 +82,7 @@ const Container = styled.div`
   box-shadow: 0 3px 6px 0 #555;
   background: white;
   font-family: Montserrat;
+  margin-top: 30px;
 `;
 const InfoLabel = styled.span`
 display: flex;
@@ -126,7 +128,7 @@ export default function WeatherPage() {
   };
 
   return (
-    <>
+    <>  <Navbar />
       <Container>
         <WeatherContainer>
           <Condition>

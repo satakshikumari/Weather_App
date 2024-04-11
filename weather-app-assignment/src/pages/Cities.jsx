@@ -7,7 +7,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort } from '@fortawesome/free-solid-svg-icons';
 import { fetchWeather } from "../services/fetchWeather";
 import "./Cities.scss";
+import styled from "styled-components";
 
+const Container = styled.div`
+  width: 100%;
+  max-width: 820px;
+  padding: 20px;
+  margin: auto;
+  border-radius: 4px;
+  box-shadow: 0 3px 6px 0 #555;
+  background: white;
+  font-family: Montserrat;
+  margin-top: 30px;
+
+  @media (max-width: 960px) {
+    padding: 15px;
+  }
+
+  @media (max-width: 600px) {
+    padding: 10px;
+    margin-top: 20px;
+  }
+`;
 
 export default function Cities() {
   const { cities, isCitiesLoading, error } = useGetCities();
@@ -18,6 +39,8 @@ export default function Cities() {
   const [sortDirection, setSortDirection] = useState("asc");
   const [weather, updateWeather] = useState();
   const navigate = useNavigate();
+
+
 
   useEffect(() => {
     if (cities && cities.results) {
@@ -73,7 +96,7 @@ export default function Cities() {
   // Fetch weather data for the selected city and navigate to weather page
   const handleCityClick = async (cityId, cityName) => {
     try {
-      const weatherData = await fetchWeather(cityId); 
+      const weatherData = await fetchWeather(cityId);
       navigate(`/weather`, { state: { weatherData, cityName } }); // Pass weather data and cityName as state
     } catch (error) {
       console.error("Error fetching weather data:", error);
@@ -129,7 +152,7 @@ export default function Cities() {
   // Update search query when suggestion clicked
   const handleSuggestionClick = (cityName) => {
     setSearchQuery(cityName);
-    setSuggestions([]); 
+    setSuggestions([]);
   };
 
 
@@ -150,53 +173,55 @@ export default function Cities() {
   return (
     <div>
       <Navbar></Navbar>
-      <div>
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Search for a city"
-            value={searchQuery}
-            onChange={handleInputChange}
-          />
-          {renderSuggestions()}
-        </div>
+      <Container>
+        <div>
+          <div className="search-bar">
+            <input
+              type="text"
+              placeholder="Search for a city"
+              value={searchQuery}
+              onChange={handleInputChange}
+            />
+            {renderSuggestions()}
+          </div>
 
-        <div className="overflow-x-auto">
-        <table>
-          <thead>
-            <tr>
-              <th>
-                <div>
-                  City Name
-                  <FontAwesomeIcon icon={faSort} className={`sort-icon ${sortColumn === "name" ? "rotated" : ""}`} onClick={() => sortCities("name")} />
-                </div>
-              </th>
-              <th>
-                <div >
-                  Country
-                  <FontAwesomeIcon icon={faSort} className={`sort-icon ${sortColumn === "cou_name_en" ? "rotated" : ""}`} onClick={() => sortCities("cou_name_en")} />
-                </div>
-              </th>
-              <th>
-                <div >
-                  Timezone
-                  <FontAwesomeIcon icon={faSort} className={`sort-icon ${sortColumn === "timezone" ? "rotated" : ""}`} onClick={() => sortCities("timezone")} />
-                </div>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedCities().map(city => (
-              <tr key={city.id}>
-                <td className="city-name" onClick={() => handleCityClick(city.name)} onContextMenu={(e) => handleRightClick(e, city.name)}>{city.name} </td>
-                <td>{city.cou_name_en}</td>
-                <td>{city.timezone}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          <div className="overflow-x-auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <div>
+                      City Name
+                      <FontAwesomeIcon icon={faSort} className={`sort-icon ${sortColumn === "name" ? "rotated" : ""}`} onClick={() => sortCities("name")} />
+                    </div>
+                  </th>
+                  <th>
+                    <div >
+                      Country
+                      <FontAwesomeIcon icon={faSort} className={`sort-icon ${sortColumn === "cou_name_en" ? "rotated" : ""}`} onClick={() => sortCities("cou_name_en")} />
+                    </div>
+                  </th>
+                  <th>
+                    <div >
+                      Timezone
+                      <FontAwesomeIcon icon={faSort} className={`sort-icon ${sortColumn === "timezone" ? "rotated" : ""}`} onClick={() => sortCities("timezone")} />
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedCities().map(city => (
+                  <tr key={city.id}>
+                    <td className="city-name" onClick={() => handleCityClick(city.name)} onContextMenu={(e) => handleRightClick(e, city.name)}>{city.name} </td>
+                    <td>{city.cou_name_en}</td>
+                    <td>{city.timezone}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 }
