@@ -3,6 +3,8 @@ import { useGetCities } from "../services/apiCities";
 import { FaSortUp, FaSortDown } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSort } from '@fortawesome/free-solid-svg-icons';
 import { fetchWeather } from "../services/fetchWeather";
 import "./Cities.scss";
 
@@ -37,21 +39,13 @@ export default function Cities() {
 
   // Function to sort cities based on column and direction
   const sortCities = (column) => {
-    console.log("collimn", column)
-    console.log("Sort Column Before Update:", sortColumn);
-    console.log("Sort Direction Before Update:", sortDirection);
 
     if (column === sortColumn) {
-      // Toggle sort direction if sorting the same column
       setSortDirection(prevDirection => (prevDirection === "asc" ? "desc" : "asc"));
     } else {
-      // Set new sort column and default to ascending direction
       setSortColumn(column);
-      setSortDirection("asc");
+      setSortDirection("desc");
     }
-
-    console.log("Sort Column After Update:", sortColumn);
-    console.log("Sort Direction After Update:", sortDirection);
   };
 
 
@@ -75,31 +69,33 @@ export default function Cities() {
     return sorted;
   };
 
-  
+
+  // Fetch weather data for the selected city and navigate to weather page
   const handleCityClick = async (cityId, cityName) => {
     try {
-      const weatherData = await fetchWeather(cityId); // Fetch weather data using the hook
-      console.log("heree", weatherData)
+      const weatherData = await fetchWeather(cityId); 
       navigate(`/weather`, { state: { weatherData, cityName } }); // Pass weather data and cityName as state
     } catch (error) {
       console.error("Error fetching weather data:", error);
     }
   };
 
+
+  // Open weather page in a new tab on Right Click
   const handleRightClick = async (e, cityId, cityName) => {
     e.preventDefault();
     e.target.classList.remove('hovered');
     e.target.classList.add('right-clicked');
 
     try {
-      const weatherData = await fetchWeather(cityId); 
+      const weatherData = await fetchWeather(cityId);
 
       // Store data in localStorage
       window.localStorage.setItem('weatherData', JSON.stringify(weatherData));
       window.localStorage.setItem('cityName', cityName);
 
       // Open weather page in a new tab
-      const url = `/weather`; 
+      const url = `/weather`;
       window.open(url, '_blank');
     } catch (error) {
       console.error("Error fetching weather data:", error);
@@ -111,6 +107,7 @@ export default function Cities() {
   const filteredCities = searchQuery ? initialCities.filter(city =>
     city.name.toLowerCase().includes(searchQuery.toLowerCase())
   ) : initialCities;
+
 
   // Update suggestions based on search query
   const handleInputChange = (e) => {
@@ -132,7 +129,7 @@ export default function Cities() {
   // Update search query when suggestion clicked
   const handleSuggestionClick = (cityName) => {
     setSearchQuery(cityName);
-    setSuggestions([]); // Clear suggestions after selection
+    setSuggestions([]); 
   };
 
 
@@ -154,7 +151,6 @@ export default function Cities() {
     <div>
       <Navbar></Navbar>
       <div>
-        {/* Search bar with suggestions */}
         <div className="search-bar">
           <input
             type="text"
@@ -165,39 +161,26 @@ export default function Cities() {
           {renderSuggestions()}
         </div>
 
+        <div className="overflow-x-auto">
         <table>
           <thead>
             <tr>
               <th>
                 <div>
-                City Name <FaSortUp onClick={() => sortCities("name")} />
-                  {/* {sortColumn === "name" && (
-                    sortDirection === "asc" ? <FaSortUp /> : <FaSortDown />
-                  )} */}
+                  City Name
+                  <FontAwesomeIcon icon={faSort} className={`sort-icon ${sortColumn === "name" ? "rotated" : ""}`} onClick={() => sortCities("name")} />
                 </div>
               </th>
               <th>
                 <div >
-                  Country <FaSortUp onClick={() => sortCities("cou_name_en")} />
-                  {/* {sortColumn === "cou_name_en" && (
-                    sortDirection === "asc" ? <FaSortUp /> : <FaSortDown />
-                  )} */}
+                  Country
+                  <FontAwesomeIcon icon={faSort} className={`sort-icon ${sortColumn === "cou_name_en" ? "rotated" : ""}`} onClick={() => sortCities("cou_name_en")} />
                 </div>
               </th>
               <th>
                 <div >
-                  Timezone <FaSortUp onClick={() => sortCities("timezone")} />
-                  {/* {sortColumn === "timezone" && (
-                    sortDirection === "asc" ? <FaSortUp /> : <FaSortDown />
-                  )} */}
-                </div>
-              </th>
-              <th>
-                <div>
-                  Population <FaSortUp onClick={() => sortCities("population")} />
-                  {/* {sortColumn === "population" && (
-                    sortDirection === "asc" ? <FaSortUp /> : <FaSortDown />
-                  )} */}
+                  Timezone
+                  <FontAwesomeIcon icon={faSort} className={`sort-icon ${sortColumn === "timezone" ? "rotated" : ""}`} onClick={() => sortCities("timezone")} />
                 </div>
               </th>
             </tr>
@@ -208,11 +191,11 @@ export default function Cities() {
                 <td className="city-name" onClick={() => handleCityClick(city.name)} onContextMenu={(e) => handleRightClick(e, city.name)}>{city.name} </td>
                 <td>{city.cou_name_en}</td>
                 <td>{city.timezone}</td>
-                <td>{city.population}</td>
               </tr>
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );

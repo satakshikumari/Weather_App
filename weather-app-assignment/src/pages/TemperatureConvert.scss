@@ -1,0 +1,35 @@
+.temperature-container {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .temperature-options {
+    display: flex;
+    align-items: center; /* Align items vertically */
+  }
+  
+  .temperature-label {
+    margin-right: 10px; /* Add spacing between label and buttons */
+  }
+  
+  .temperature-options button {
+    padding: 7px 14px;
+    font-size: 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .temperature-options button:last-child {
+    margin-left: 10px; /* Add spacing between buttons */
+  }
+  
+  .temperature-options button:hover {
+    background-color: #0056b3;
+  }
+  

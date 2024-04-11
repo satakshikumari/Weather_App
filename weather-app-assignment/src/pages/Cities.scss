@@ -28,8 +28,6 @@ table {
   tr:hover {
     background-color: #ddd;
   }
-  
-  /* Cities.scss */
 
 /* Search bar container */
 .search-bar {
@@ -85,6 +83,11 @@ table {
     color: black;
   }
   
+  .sort-icon {
+    font-size: 0.75rem; 
+    margin-left: 0.5rem;
+}
+
   
   
   

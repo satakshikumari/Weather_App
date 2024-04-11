@@ -2,25 +2,27 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import { WeatherIcons, WeatherInfoIcons } from "../Icons";
+import TemperatureConvert from "./TemperatureConvert"
 
 const BackButton = styled.button`
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
+    margin-top: 20px;
+    padding: 7px 14px;
+    font-size: 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
 `;
 const Location = styled.span`
-margin: 15px auto;
+margin: 8px auto;
 text-transform: capitalize;
-font-size: 28px;
+font-size: 25px;
 font-weight: bold;
 `;
 const Condition = styled.span`
-margin: 20px auto;
+margin: 5px auto;
 text-transform: capitalize;
 font-size: 14px;
 & span {
@@ -72,7 +74,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 380px;
+  width: 420px;
   padding: 20px 10px;
   margin: auto;
   border-radius: 4px;
@@ -120,7 +122,7 @@ export default function WeatherPage() {
   }
 
   const handleBackClick = () => {
-    navigate(`/cities`); 
+    navigate(`/cities`);
   };
 
   return (
@@ -143,6 +145,9 @@ export default function WeatherPage() {
           <WeatherInfoComponent name={"wind"} value={weather?.wind?.speed} />
           <WeatherInfoComponent name={"pressure"} value={weather?.main?.pressure} />
         </WeatherInfoContainer>
+        <TemperatureConvert currentTemperature={weather?.main?.temp}>
+          Convert Temperature
+        </TemperatureConvert>
         <BackButton onClick={handleBackClick}>Back</BackButton>
       </Container>
 
