@@ -75,7 +75,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 420px;
+  width: 360px;
   padding: 20px 10px;
   margin: auto;
   border-radius: 4px;
